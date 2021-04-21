@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MakeQuiz</string>
+    <string name="titleApp">MakeQuiz and TakeQuiz</string>
+    <string name="labelTakeQuiz">Take Quiz</string>
+    <string name="labelMakeQuiz">Make Quiz</string>
+    <string name="question">Question:</string>
+    <string name="answer">Answer:</string>
+    <string name="buttonAdd">Add</string>
+    <string name="labelQuestionAnswer">Quiz Questions and Answers</string>
+    <string name="titleQuiz">Make Quiz</string>
+</resources>

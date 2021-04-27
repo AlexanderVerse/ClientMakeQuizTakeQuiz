@@ -23,6 +23,7 @@ class TakeQuiz : AppCompatActivity()
     private var answer: String? = null
     private var totalQuestion = 0
     private var indexQuestion = 0
+    private var globalData: GlobalData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,10 +64,15 @@ class TakeQuiz : AppCompatActivity()
     fun checkQuestion()
     {
         indexQuestion = 0
+        var answerCorrect = 0
         for(element in arrayAnswerUser)
         {
-            if(element == answer.)
+            if(element == answer!!.split(",")[indexQuestion])
+            {
+                ++answerCorrect
+            }
         }
+        globalData?.showMessage(answerCorrect, totalQuestion)
     }
 
 }

@@ -1,17 +1,16 @@
 package com.example.makequiz
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Html
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.graphics.toColorInt
-import java.util.ArrayList
+import androidx.appcompat.app.AppCompatActivity
+import java.util.*
 
 class MakeQuiz : AppCompatActivity()
 {
@@ -21,6 +20,7 @@ class MakeQuiz : AppCompatActivity()
     private var listQuestionAnswer: String? = null
     private var arrayQuestion: ArrayList<String>? = null
     private var arrayAnswer: ArrayList<String>? = null
+    private var globalData: GlobalData? = null
 
 
     override fun startActivity(intent: Intent?) {
@@ -39,16 +39,23 @@ class MakeQuiz : AppCompatActivity()
         listQuestionAnswer = ""
         arrayAnswer = ArrayList()
         arrayQuestion = ArrayList()
+        globalData = GlobalData()
+        
+        
     }
 
 
 
 
-    fun addQuestionAnswer(view : View)
+    fun addQuestionAnswer(view: View)
     {
         if(questionText?.text.toString() == "" || answerText?.text.toString() == "")
         {
-            Toast.makeText(this,"La pregunta-respuesta no puede ser agregada ya que están vacios los campos", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                "La pregunta-respuesta no puede ser agregada ya que están vacios los campos",
+                Toast.LENGTH_LONG
+            ).show()
         }
         else
         {
@@ -63,8 +70,10 @@ class MakeQuiz : AppCompatActivity()
         {
             if (question == questionText?.text.toString().removeSuffix("?").removeSuffix("¿"))
             {
-                Toast.makeText(this, "Esta pregunta ya se encuentra en la lista de preguntas y " +
-                        "respuestas, favor de ingresar otra", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this, "Esta pregunta ya se encuentra en la lista de preguntas y " +
+                            "respuestas, favor de ingresar otra", Toast.LENGTH_LONG
+                ).show()
                 return
             }
         }
@@ -78,8 +87,19 @@ class MakeQuiz : AppCompatActivity()
         answerText?.setText("")
     }
 
-    private fun saveDataToServer()
+    fun saveDataToServer(view: View)
     {
-        
+        val context: Context = this
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("question", arrayQuestion?.toString())
+        editor.putString("answer", arrayAnswer?.toString())
+        editor.apply()
+    }
+
+    fun removeItemListQA(view: View)
+    {
+
     }
 }

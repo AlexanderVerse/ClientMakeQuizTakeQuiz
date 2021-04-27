@@ -5,7 +5,13 @@
     <string name="labelMakeQuiz">Make Quiz</string>
     <string name="question">Question:</string>
     <string name="answer">Answer:</string>
-    <string name="buttonAdd">Add</string>
+    <string name="buttonAdd">Add to the list</string>
     <string name="labelQuestionAnswer">Quiz Questions and Answers</string>
     <string name="titleQuiz">Make Quiz</string>
+    <string name="textAddDB">Add list to database</string>
+    <string name="removeQAList">Remove item from list</string>
+    <string name="titleTakeQuiz">Take Quiz</string>
+    <string name="messageWriteAnswer">Write your answer</string>
+    <string name="nextQuestion">Next question</string>
+    <string name="sendAnswer">Send reply</string>
 </resources>

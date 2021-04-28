@@ -47,7 +47,7 @@ class TakeQuiz : AppCompatActivity()
         System.out.println("--->Answer:${answer}")
         totalQuestion = question?.split(",")?.size!!
         System.out.println("--->Total: $totalQuestion")
-        questionText?.text = question!!.split(",")[indexQuestion]
+        questionText?.text = "${indexAnswer + 1}: " + question!!.split(",")[indexQuestion]
         arrayAnswerUser = kotlin.Array(totalQuestion) { indice -> (indice + 1).toString() }
     }
 
@@ -60,7 +60,7 @@ class TakeQuiz : AppCompatActivity()
             if(indexQuestion < (totalQuestion - 1))
             {
                 ++indexQuestion
-                questionText?.text = question!!.split(",")[indexQuestion]
+                questionText?.text = "${indexAnswer + 1}: " + question!!.split(",")[indexQuestion]
             }
             else
             {

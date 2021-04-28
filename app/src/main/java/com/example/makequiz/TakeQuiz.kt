@@ -53,18 +53,23 @@ class TakeQuiz : AppCompatActivity()
 
     fun nextQuestion(view: View)
     {
-        arrayAnswerUser[indexAnswer] = answerText?.text.toString().replace(" ", "")
-        ++indexAnswer
-        if(indexQuestion < (totalQuestion - 1))
+        if(answerText?.text.toString() != "")
         {
-            ++indexQuestion
-            questionText?.text = question!!.split(",")[indexQuestion]
+            arrayAnswerUser[indexAnswer] = answerText?.text.toString().replace(" ", "")
+            ++indexAnswer
+            if(indexQuestion < (totalQuestion - 1))
+            {
+                ++indexQuestion
+                questionText?.text = question!!.split(",")[indexQuestion]
+            }
+            else
+            {
+                checkQuestion()
+            }
+            answerText?.setText("")
         }
         else
-        {
-            checkQuestion()
-        }
-        answerText?.setText("")
+            Toast.makeText(this, "La respuesta no puede estar vacia", Toast.LENGTH_SHORT).show()
     }
 
     private fun checkQuestion()
@@ -72,6 +77,7 @@ class TakeQuiz : AppCompatActivity()
         indexAnswer = 0
         indexQuestion = 0
         var answerCorrect = 0
+        questionText?.text = question!!.split(",")[indexQuestion]
         for(element in arrayAnswerUser)
         {
             System.out.println("----->element:$element==${answer!!.split(",")[indexQuestion]}<----")
@@ -94,16 +100,16 @@ class TakeQuiz : AppCompatActivity()
             .setPositiveButton(
                 "Ok"
             ) { dialog: DialogInterface?, id: Int ->
+                finish()
+                finish()
+                val intent: Intent = Intent(this, MainActivity::class.java).apply {
 
+                }
+                startActivity(intent)
             }.setOnDismissListener { dialogInterface: DialogInterface? ->
 
             }
         builder.create().show()
-        val intent: Intent = Intent(this, MainActivity::class.java).apply {
-
-        }
-//        finish()
-//        startActivity(intent)
     }
 
 }

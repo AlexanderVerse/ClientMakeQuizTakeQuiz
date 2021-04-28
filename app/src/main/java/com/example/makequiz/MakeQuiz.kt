@@ -78,7 +78,7 @@ class MakeQuiz : AppCompatActivity()
             }
         }
         arrayAnswer?.add(answerText?.text.toString())
-        arrayQuestion?.add(questionText?.text.toString().removeSuffix("?").removeSuffix("¿"))
+        arrayQuestion?.add(questionText?.text.toString().replace("?", "").replace("¿", ""))
         listQuestionAnswer = listQuestionAnswer + arrayQuestion?.size +"- ¿<font color=#DD3220>" +
         questionText?.text+
                 "?: </font><font color=#36B536>" + answerText?.text + "</font><br>"
@@ -89,6 +89,14 @@ class MakeQuiz : AppCompatActivity()
 
     fun saveDataToServer(view: View)
     {
+        for(element in arrayAnswer!!)
+        {
+            System.out.println("Answer-->$element<--")
+        }
+        for(element in arrayQuestion!!)
+        {
+            System.out.println("Question-->$element<--")
+        }
         val context: Context = this
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences("UserData", MODE_PRIVATE)
@@ -96,6 +104,7 @@ class MakeQuiz : AppCompatActivity()
         editor.putString("question", arrayQuestion?.toString())
         editor.putString("answer", arrayAnswer?.toString())
         editor.apply()
+        Toast.makeText(this, "Los datos han sido enviados al servidor", Toast.LENGTH_LONG).show()
     }
 
     fun removeItemListQA(view: View)

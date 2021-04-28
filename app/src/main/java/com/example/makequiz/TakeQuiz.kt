@@ -27,6 +27,7 @@ class TakeQuiz : AppCompatActivity()
     private var answer: String? = null
     private var totalQuestion = 0
     private var indexQuestion = 0
+    private var indexAnswer = 0
     private var globalData: GlobalData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +42,9 @@ class TakeQuiz : AppCompatActivity()
         val userData: SharedPreferences = context.getSharedPreferences("UserData", MODE_PRIVATE)
         Log.i(TAG_FRAGMENT, userData.toString());
         question = userData.getString("question", null)?.replace("[", "")?.replace("]", "")
-        answer = userData.getString("answer", null)?.replace("[", "")?.replace("]", "")
-        System.out.println("--->Question: ${question?.split(",")}")
-        System.out.println("--->Answer: ${answer?.split(",")}")
+        answer = userData.getString("answer", null)?.replace("[", "")?.replace("]", "")?.replace(" ", "")
+        System.out.println("--->Question:${question}")
+        System.out.println("--->Answer:${answer}")
         totalQuestion = question?.split(",")?.size!!
         System.out.println("--->Total: $totalQuestion")
         questionText?.text = question!!.split(",")[indexQuestion]
@@ -52,13 +53,12 @@ class TakeQuiz : AppCompatActivity()
 
     fun nextQuestion(view: View)
     {
-        ++indexQuestion
-        System.out.println("Index $indexQuestion == $totalQuestion")
-        if(indexQuestion < totalQuestion)
+        arrayAnswerUser[indexAnswer] = answerText?.text.toString().replace(" ", "")
+        ++indexAnswer
+        if(indexQuestion < (totalQuestion - 1))
         {
-            arrayAnswerUser[indexQuestion - 1] = question!!.split(",")[indexQuestion]
+            ++indexQuestion
             questionText?.text = question!!.split(",")[indexQuestion]
-            
         }
         else
         {
@@ -69,24 +69,25 @@ class TakeQuiz : AppCompatActivity()
 
     private fun checkQuestion()
     {
-        Toast.makeText(this, "Entre a verificar las respuestas ${arrayAnswerUser.size}", Toast.LENGTH_LONG).show()
+        indexAnswer = 0
         indexQuestion = 0
         var answerCorrect = 0
         for(element in arrayAnswerUser)
         {
+            System.out.println("----->element:$element==${answer!!.split(",")[indexQuestion]}<----")
             if(element == answer!!.split(",")[indexQuestion])
             {
                 ++answerCorrect
             }
             ++indexQuestion
         }
-        answerCorrect = 0
+        indexQuestion = 0
         showMessage(answerCorrect, totalQuestion)
+        answerCorrect = 0
     }
 
     private fun showMessage(correctAnswer: Int, totalQuestion: Int)
     {
-        System.out.println("-----> Estoy dentro de SHOWMESSAGE")
         val builder = AlertDialog.Builder(this)
         builder.setTitle("El quiz ha finalizado")
         builder.setMessage("Tuviste $correctAnswer respuestas correctas de $totalQuestion")
@@ -101,8 +102,8 @@ class TakeQuiz : AppCompatActivity()
         val intent: Intent = Intent(this, MainActivity::class.java).apply {
 
         }
-        finish()
-        startActivity(intent)
+//        finish()
+//        startActivity(intent)
     }
 
 }
